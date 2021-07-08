@@ -1,6 +1,5 @@
 # simple-browser-store
 
-
 1. 安装 ,[npm](https://npmjs.org/) / [yarn](https://yarnpkg.com) 安装
 
 ```js
@@ -11,7 +10,7 @@ yarn add simple-browser-store
 2. 使用
 
 ```js
-import {getData,setData} from 'simple-browser-store';
+import { getData, setData, removeData } from 'simple-browser-store';
 ```
 
 3. typescript 类型定义
@@ -28,5 +27,6 @@ export declare const setData: (
   cookieOptions?: CookieAttributes
 ) => void;
 
+export declare const removeData: (type: Type, key: string) => void;
 
 ```

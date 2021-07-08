@@ -23,3 +23,11 @@ export const setData = (
     return storage.setData(type, key, value);
   }
 };
+
+export const removeData = (type: Type, key: string): void => {
+  if (type === 'cookie') {
+    return cookie.removeData(key);
+  } else {
+    return storage.removeData(type, key);
+  }
+};

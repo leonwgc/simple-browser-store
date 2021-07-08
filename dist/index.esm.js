@@ -80,6 +80,9 @@ var setData = function setData(key, value, cookieOptions) {
 
   jsCookie.set(key, JSON.stringify(data), cookieOptions);
 };
+var removeData = function removeData(key, cookieOptions) {
+  jsCookie.remove(key, cookieOptions);
+};
 
 var getData$1 = function getData(type, key) {
   var dataStr = window[type].getItem(key);
@@ -108,6 +111,9 @@ var setData$1 = function setData(type, key, value) {
 
   window[type].setItem(key, JSON.stringify(data));
 };
+var removeData$1 = function removeData(type, key) {
+  window[type].removeItem(key);
+};
 
 var getData$2 = function getData$2(type, key) {
   if (type === 'cookie') {
@@ -123,5 +129,12 @@ var setData$2 = function setData$2(type, key, value, cookieOptions) {
     return setData$1(type, key, value);
   }
 };
+var removeData$2 = function removeData$2(type, key) {
+  if (type === 'cookie') {
+    return removeData(key);
+  } else {
+    return removeData$1(type, key);
+  }
+};
 
-export { getData$2 as getData, setData$2 as setData };
+export { getData$2 as getData, removeData$2 as removeData, setData$2 as setData };
