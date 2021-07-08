@@ -75,22 +75,18 @@ var getData = function getData(key) {
 };
 var setData = function setData(key, value, cookieOptions) {
   if (!value) {
-    // remove
-    return removeData(key, cookieOptions);
+    return;
   }
 
-  var oldData = getData(key);
+  var data = getData(key);
 
-  if (!oldData) {
-    jsCookie__default['default'].set(key, JSON.stringify(value), cookieOptions);
+  if (data) {
+    data = _objectSpread2(_objectSpread2({}, data), value);
   } else {
-    var newVal = _objectSpread2(_objectSpread2({}, oldData), value);
-
-    jsCookie__default['default'].set(key, JSON.stringify(newVal));
+    data = value;
   }
-};
-var removeData = function removeData(key, cookieOptions) {
-  jsCookie__default['default'].remove(key, cookieOptions);
+
+  jsCookie__default['default'].set(key, JSON.stringify(data), cookieOptions);
 };
 
 var getData$1 = function getData(type, key) {
@@ -107,22 +103,18 @@ var getData$1 = function getData(type, key) {
 };
 var setData$1 = function setData(type, key, value) {
   if (!value) {
-    // remove
-    return removeData$1(type, key);
+    return;
   }
 
-  var oldData = getData$1(type, key);
+  var data = getData$1(type, key);
 
-  if (!oldData) {
-    window[type].setItem(key, JSON.stringify(value));
+  if (data) {
+    data = _objectSpread2(_objectSpread2({}, data), value);
   } else {
-    var newVal = _objectSpread2(_objectSpread2({}, oldData), value);
-
-    window[type].setItem(key, JSON.stringify(newVal));
+    data = value;
   }
-};
-var removeData$1 = function removeData(type, key) {
-  window[type].removeItem(key);
+
+  window[type].setItem(key, JSON.stringify(data));
 };
 
 var getData$2 = function getData$2(type, key) {

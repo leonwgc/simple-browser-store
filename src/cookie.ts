@@ -19,17 +19,16 @@ export const setData = (
   cookieOptions?: CookieAttributes
 ): void => {
   if (!value) {
-    // remove
-    return removeData(key, cookieOptions);
+    return;
   }
-  const oldData = getData(key);
-
-  if (!oldData) {
-    jsCookie.set(key, JSON.stringify(value), cookieOptions);
+  let data = getData(key);
+  if (data) {
+    data = { ...data, ...value };
   } else {
-    const newVal = { ...oldData, ...value };
-    jsCookie.set(key, JSON.stringify(newVal));
+    data = value;
   }
+
+  jsCookie.set(key, JSON.stringify(data), cookieOptions);
 };
 
 export const removeData = (key: string, cookieOptions?: CookieAttributes): void => {
