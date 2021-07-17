@@ -1,8 +1,9 @@
-import { Type } from './type';
+import { StorageType } from './type';
+import { isObject } from './helper';
 
-export const getData = (type: Type, key: string): Record<string, unknown> | null => {
+export const getData = (type: StorageType, key: string): Record<string, unknown> => {
   const dataStr = window[type].getItem(key);
-  let data = null;
+  let data = {};
 
   if (dataStr) {
     try {
@@ -13,19 +14,12 @@ export const getData = (type: Type, key: string): Record<string, unknown> | null
   return data;
 };
 
-export const setData = (type: Type, key: string, value: Record<string, unknown> | null): void => {
-  if (!value) {
-    return;
+export const setData = (type: StorageType, key: string, value: Record<string, unknown>): void => {
+  if (isObject(value)) {
+    window[type].setItem(key, JSON.stringify({ ...getData(type, key), ...value }));
   }
-  let data = getData(type, key);
-  if (data) {
-    data = { ...data, ...value };
-  } else {
-    data = value;
-  }
-  window[type].setItem(key, JSON.stringify(data));
 };
 
-export const removeData = (type: Type, key: string): void => {
+export const removeData = (type: StorageType, key: string): void => {
   window[type].removeItem(key);
 };

@@ -1,1 +1,1 @@
-export type Type = 'cookie' | 'localStorage' | 'sessionStorage';
+export type StorageType = 'cookie' | 'localStorage' | 'sessionStorage';

@@ -1,9 +1,9 @@
 import * as cookie from './cookie';
 import * as storage from './storage';
-import { Type } from './type';
+import { StorageType } from './type';
 import { CookieAttributes } from 'js-cookie';
 
-export const getData = (type: Type, key: string): Record<string, unknown> => {
+export const getData = (type: StorageType, key: string): Record<string, unknown> => {
   if (type === 'cookie') {
     return cookie.getData(key);
   } else {
@@ -12,9 +12,9 @@ export const getData = (type: Type, key: string): Record<string, unknown> => {
 };
 
 export const setData = (
-  type: Type,
+  type: StorageType,
   key: string,
-  value: Record<string, unknown> | null,
+  value: Record<string, unknown>,
   cookieOptions?: CookieAttributes
 ): void => {
   if (type === 'cookie') {
@@ -24,9 +24,13 @@ export const setData = (
   }
 };
 
-export const removeData = (type: Type, key: string): void => {
+export const removeData = (
+  type: StorageType,
+  key: string,
+  cookieOptions?: CookieAttributes
+): void => {
   if (type === 'cookie') {
-    return cookie.removeData(key);
+    return cookie.removeData(key, cookieOptions);
   } else {
     return storage.removeData(type, key);
   }

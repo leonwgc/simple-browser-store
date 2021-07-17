@@ -84,9 +84,13 @@ var removeData = function removeData(key, cookieOptions) {
   jsCookie.remove(key, cookieOptions);
 };
 
+var isObject = function isObject(data) {
+  return Object.prototype.toString.call(data) === '[object Object]';
+};
+
 var getData$1 = function getData(type, key) {
   var dataStr = window[type].getItem(key);
-  var data = null;
+  var data = {};
 
   if (dataStr) {
     try {
@@ -97,19 +101,9 @@ var getData$1 = function getData(type, key) {
   return data;
 };
 var setData$1 = function setData(type, key, value) {
-  if (!value) {
-    return;
+  if (isObject(value)) {
+    window[type].setItem(key, JSON.stringify(_objectSpread2(_objectSpread2({}, getData$1(type, key)), value)));
   }
-
-  var data = getData$1(type, key);
-
-  if (data) {
-    data = _objectSpread2(_objectSpread2({}, data), value);
-  } else {
-    data = value;
-  }
-
-  window[type].setItem(key, JSON.stringify(data));
 };
 var removeData$1 = function removeData(type, key) {
   window[type].removeItem(key);
@@ -129,9 +123,9 @@ var setData$2 = function setData$2(type, key, value, cookieOptions) {
     return setData$1(type, key, value);
   }
 };
-var removeData$2 = function removeData$2(type, key) {
+var removeData$2 = function removeData$2(type, key, cookieOptions) {
   if (type === 'cookie') {
-    return removeData(key);
+    return removeData(key, cookieOptions);
   } else {
     return removeData$1(type, key);
   }
