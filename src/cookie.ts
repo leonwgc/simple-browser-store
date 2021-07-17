@@ -1,8 +1,9 @@
 import jsCookie, { CookieAttributes } from 'js-cookie';
+import { isObject } from './helper';
 
 export const getData = (key: string): Record<string, unknown> => {
   const cookie = jsCookie.get(key);
-  let cookieObj = null;
+  let cookieObj = {};
 
   if (cookie) {
     try {
@@ -15,20 +16,12 @@ export const getData = (key: string): Record<string, unknown> => {
 
 export const setData = (
   key: string,
-  value: Record<string, unknown> | null,
+  value: Record<string, unknown>,
   cookieOptions?: CookieAttributes
 ): void => {
-  if (!value) {
-    return;
+  if (isObject(value)) {
+    jsCookie.set(key, JSON.stringify({ ...getData(key), ...value }), cookieOptions);
   }
-  let data = getData(key);
-  if (data) {
-    data = { ...data, ...value };
-  } else {
-    data = value;
-  }
-
-  jsCookie.set(key, JSON.stringify(data), cookieOptions);
 };
 
 export const removeData = (key: string, cookieOptions?: CookieAttributes): void => {

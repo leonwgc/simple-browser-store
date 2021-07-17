@@ -61,9 +61,13 @@ function _defineProperty(obj, key, value) {
   return obj;
 }
 
+var isObject = function isObject(data) {
+  return Object.prototype.toString.call(data) === '[object Object]';
+};
+
 var getData = function getData(key) {
   var cookie = jsCookie__default['default'].get(key);
-  var cookieObj = null;
+  var cookieObj = {};
 
   if (cookie) {
     try {
@@ -74,26 +78,12 @@ var getData = function getData(key) {
   return cookieObj;
 };
 var setData = function setData(key, value, cookieOptions) {
-  if (!value) {
-    return;
+  if (isObject(value)) {
+    jsCookie__default['default'].set(key, JSON.stringify(_objectSpread2(_objectSpread2({}, getData(key)), value)), cookieOptions);
   }
-
-  var data = getData(key);
-
-  if (data) {
-    data = _objectSpread2(_objectSpread2({}, data), value);
-  } else {
-    data = value;
-  }
-
-  jsCookie__default['default'].set(key, JSON.stringify(data), cookieOptions);
 };
 var removeData = function removeData(key, cookieOptions) {
   jsCookie__default['default'].remove(key, cookieOptions);
-};
-
-var isObject = function isObject(data) {
-  return Object.prototype.toString.call(data) === '[object Object]';
 };
 
 var getData$1 = function getData(type, key) {
