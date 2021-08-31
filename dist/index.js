@@ -65,6 +65,13 @@ var isObject = function isObject(data) {
   return Object.prototype.toString.call(data) === '[object Object]';
 };
 
+/**
+ * 获取数据
+ *
+ * @param {string} key
+ * @return {*}  {Record<string, unknown>}
+ */
+
 var getData = function getData(key) {
   var cookie = jsCookie__default['default'].get(key);
   var cookieObj = {};
@@ -77,6 +84,14 @@ var getData = function getData(key) {
 
   return cookieObj;
 };
+/**
+ * 存储数据
+ *
+ * @param {string} key
+ * @param {Record<string, unknown>} value
+ * @param {CookieAttributes} [cookieOptions]
+ */
+
 var setData = function setData(key, value, cookieOptions) {
   if (isObject(value)) {
     jsCookie__default['default'].set(key, JSON.stringify(_objectSpread2(_objectSpread2({}, getData(key)), value)), cookieOptions);
@@ -107,6 +122,13 @@ var removeData$1 = function removeData(type, key) {
   window[type].removeItem(key);
 };
 
+/**
+ * 从cookie/localStorage/sessionStorage获取key对应的数据
+ *
+ * @param {StorageType} type
+ * @param {string} key
+ * @return {*}  {Record<string, unknown>}
+ */
 var getData$2 = function getData$2(type, key) {
   if (type === 'cookie') {
     return getData(key);
@@ -114,6 +136,17 @@ var getData$2 = function getData$2(type, key) {
     return getData$1(type, key);
   }
 };
+/**
+ * 保存数据到cookie/localStorage/sessionStorage,如果是cookie，可以设置cookie 属性，e.g. expires/path/domain/secure/sameSite
+ * cookie option 参考：https://www.npmjs.com/package/js-cookie
+ *
+ * @param {StorageType} type
+ * @param {string} key
+ * @param {Record<string, unknown>} value
+ * @param {CookieAttributes} [cookieOptions]
+ * @return {*}  {void}
+ */
+
 var setData$2 = function setData$2(type, key, value, cookieOptions) {
   if (type === 'cookie') {
     return setData(key, value, cookieOptions);
@@ -121,6 +154,15 @@ var setData$2 = function setData$2(type, key, value, cookieOptions) {
     return setData$1(type, key, value);
   }
 };
+/**
+ *  删除数据
+ *
+ * @param {StorageType} type
+ * @param {string} key
+ * @param {CookieAttributes} [cookieOptions]
+ * @return {*}  {void}
+ */
+
 var removeData$2 = function removeData$2(type, key, cookieOptions) {
   if (type === 'cookie') {
     return removeData(key, cookieOptions);

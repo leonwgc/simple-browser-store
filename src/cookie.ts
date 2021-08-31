@@ -1,13 +1,13 @@
 import jsCookie, { CookieAttributes } from 'js-cookie';
 import { isObject } from './helper';
 
-export /**
+/**
  * 获取数据
  *
  * @param {string} key
  * @return {*}  {Record<string, unknown>}
  */
-const getData = (key: string): Record<string, unknown> => {
+export const getData = (key: string): Record<string, unknown> => {
   const cookie = jsCookie.get(key);
   let cookieObj = {};
 
@@ -20,14 +20,14 @@ const getData = (key: string): Record<string, unknown> => {
   return cookieObj;
 };
 
-export /**
+/**
  * 存储数据
  *
  * @param {string} key
  * @param {Record<string, unknown>} value
  * @param {CookieAttributes} [cookieOptions]
  */
-const setData = (
+export const setData = (
   key: string,
   value: Record<string, unknown>,
   cookieOptions?: CookieAttributes
