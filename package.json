@@ -20,7 +20,7 @@
     "prepare": "husky install",
     "lint-staged": "lint-staged",
     "type": "tsc",
-    "build": "father-build",
+    "build": "father-build && tsc",
     "dev": "father-build --watch",
     "pub": "bash pub.sh"
   },
@@ -50,7 +50,7 @@
     "lint-staged": "^10.5.4",
     "prettier": "^2.2.1",
     "rimraf": "^3.0.2",
-    "typescript": "^4.2.4",
+    "typescript": "^4.3.5",
     "yargs": "^15.3.1"
   },
   "files": [
